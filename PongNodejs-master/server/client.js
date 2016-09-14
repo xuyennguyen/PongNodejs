@@ -18,4 +18,7 @@ Client.prototype.winGame = function(){
 Client.prototype.loseGame = function(){
 	this.socket.emit('lose');
 }
+Client.prototype.sendPoints = function(data){
+	 this.socket.emit('drawPlayer', {clientID: data.clientID, points: data.points});
+};
 module.exports = Client;

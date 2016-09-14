@@ -3,9 +3,11 @@ var http = require('http');
 var path = require('path');
 var ecstatic = require('ecstatic');
 var io = require('socket.io');
+var express = require('express');
 
 var Client = require('./client.js');
 var Lobby = require('./lobby.js');
+var app = express();
 
 
 var port = process.env.PORT || 4040
@@ -68,6 +70,14 @@ function onSocketConnection(socket){
       console.log('socket id :' + socketID + ' disconnect');
       Lobby.removeClient(client);
       console.log(Lobby.toString());
+    });
+
+    socket.on('gesturesPoint', function(data){
+      console.log('recieve gesturesPoint');
+       game = Lobby.getGame(client);
+        if(game.allClientsReady()){
+          game.sendPoints(data);
+      }
     });
 
 }

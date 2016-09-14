@@ -55,6 +55,11 @@ Game.prototype.startGame = function() {
     this.clients[i].startGame();
  }
 };
+Game.prototype.sendPoints = function(data){
 
+  for ( var i = 0; i < this.clients.length; i++){
+    this.clients[i].sendPoints(data);
+  }
+};
 
 module.exports = Game;
